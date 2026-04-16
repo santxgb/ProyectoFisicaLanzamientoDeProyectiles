@@ -32,7 +32,7 @@ El simulador se basa en los conceptos de cinemática y movimiento en el plano es
 3. Abre `index.html` en un navegador web moderno (Chrome, Firefox o Edge).
 4. Sigue las instrucciones visibles en la interfaz para ajustar variables y ejecutar la simulación.
 
-## 👤 Autores
+## Autores
 
 * Gabriel Santiago Borda Currea - *Ingeniería de Sistemas y Computación* - [Santxgb]
 * Carlos Alberto Medina Rosas - *Ingeniería de Sistemas y Computación* - [GitHub de compañero]
