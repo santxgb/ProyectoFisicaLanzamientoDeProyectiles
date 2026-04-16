@@ -35,7 +35,7 @@ El simulador se basa en los conceptos de cinemática y movimiento en el plano es
 ## Autores
 
 * Gabriel Santiago Borda Currea - *Ingeniería de Sistemas y Computación* - [Santxgb]
-* Carlos Alberto Medina Rosas - *Ingeniería de Sistemas y Computación* - [GitHub de compañero]
+* Carlos Alberto Medina Rosas - *Ingeniería de Sistemas y Computación* - [carlitosmr0213-mr]
 * Carlos Manuel Tarquino Bustos - *Ingeniería de Sistemas y Computación* - [GitHub de compañero]
 
 --------------------------------------------------------------------------------------
