@@ -39,4 +39,4 @@ El simulador se basa en los conceptos de cinemática y movimiento en el plano es
 * Carlos Manuel Tarquino Bustos - *Ingeniería de Sistemas y Computación* - [GitHub de compañero]
 
 --------------------------------------------------------------------------------------
-Institución:Universidad Pedagógica y Tecnológica de Colombia Seccional Sogamoso (UPTC)
+Institución: Universidad Pedagógica y Tecnológica de Colombia Seccional Sogamoso (UPTC)
