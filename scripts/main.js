@@ -62,3 +62,7 @@ slAngulo.addEventListener('input', actualizarValores);
 slVelocidad.addEventListener('input', actualizarValores);
 slAltura.addEventListener('input', actualizarValores);
 slGravedad.addEventListener('input', actualizarValores);
+
+actualizarValores();
+
+console.log('Sliders conectados y etiquetas actualizadas.');
