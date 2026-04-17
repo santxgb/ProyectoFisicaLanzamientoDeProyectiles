@@ -51,4 +51,9 @@ for (const [nombre, elemento] of Object.entries(elementos)) {
   }
 }
 
-console.log('Conexión inicial del DOM completada.');
+function actualizarValores() {
+  valAngulo.textContent = slAngulo.value + '°';
+  valVelocidad.textContent = slVelocidad.value + ' m/s';
+  valAltura.textContent = slAltura.value + ' m';
+  valGravedad.textContent = (slGravedad.value / 10).toFixed(1) + ' m/s²';
+}
