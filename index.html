@@ -5,8 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Simulador de Tiro Parabólico</title>
         <link rel="stylesheet" href="css/styles.css">
-        <script src="scripts/physics.js"></script>
-        <script src="scripts/canvas.js"></script>
-        <script src="scripts/main.js"></script>
+        <script src="scripts/physics.js" defer></script>
+<script src="scripts/canvas.js" defer></script>
+<script src="scripts/main.js" defer></script>
     </head>
+    <body>
+        <div>
+            <canvas id="canvas" width="760" height="480"></canvas>
+        </div>
+
+        <div>
+            <label>Ángulo: <span id="val-angulo">45°</span></label>
+            <input type="range" id="sl-angulo" min="1" max="89" value="45">
+
+            <label>Velocidad inicial: <span id="val-velocidad">30m/s</span></label>
+            <input type="range" id="sl-velocidad" min="5" max="100" value="30">
+
+            <label>Altura inicial: <span id="val-altura">0 m</span></label>
+            <input type="range" id="sl-velocidad" min="5" max="100" value="30">
+
+            <label>Gravedad: <span id="val-gravedad">9.8 m/s²</span></label>
+            <input type="range" id="sl-gravedad" min="1" max="25" value="98" step="1">
+        </div>
+    </body>
 </html>
