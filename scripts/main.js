@@ -16,3 +16,14 @@ const btnReset = document.getElementById('btn-reset');
 const dTiempo = document.getElementById('d-tiempo');
 const dX = document.getElementById('d-x');
 const dY = document.getElementById('d-y');
+
+console.log('Canvas:', canvas);
+console.log('Slider ángulo:', slAngulo);
+console.log('Slider velocidad:', slVelocidad);
+console.log('Slider altura:', slAltura);
+console.log('Slider gravedad:', slGravedad);
+console.log('Botón lanzar:', btnLanzar);
+console.log('Botón reset:', btnReset);
+console.log('Dato tiempo:', dTiempo);
+console.log('Dato X:', dX);
+console.log('Dato Y:', dY);
