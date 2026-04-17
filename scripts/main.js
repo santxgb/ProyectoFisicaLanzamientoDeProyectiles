@@ -27,3 +27,28 @@ console.log('Botón reset:', btnReset);
 console.log('Dato tiempo:', dTiempo);
 console.log('Dato X:', dX);
 console.log('Dato Y:', dY);
+
+const elementos = {
+  canvas,
+  slAngulo,
+  slVelocidad,
+  slAltura,
+  slGravedad,
+  valAngulo,
+  valVelocidad,
+  valAltura,
+  valGravedad,
+  btnLanzar,
+  btnReset,
+  dTiempo,
+  dX,
+  dY
+};
+
+for (const [nombre, elemento] of Object.entries(elementos)) {
+  if (!elemento) {
+    console.error(`No se encontró el elemento: ${nombre}`);
+  }
+}
+
+console.log('Conexión inicial del DOM completada.');
