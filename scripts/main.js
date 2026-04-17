@@ -57,3 +57,8 @@ function actualizarValores() {
   valAltura.textContent = slAltura.value + ' m';
   valGravedad.textContent = (slGravedad.value / 10).toFixed(1) + ' m/s²';
 }
+
+slAngulo.addEventListener('input', actualizarValores);
+slVelocidad.addEventListener('input', actualizarValores);
+slAltura.addEventListener('input', actualizarValores);
+slGravedad.addEventListener('input', actualizarValores);
