@@ -65,4 +65,4 @@ slGravedad.addEventListener('input', actualizarValores);
 
 actualizarValores();
 
-console.log('Sliders conectados y etiquetas actualizadas.');
+console.log('Holi');
