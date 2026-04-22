@@ -10,33 +10,98 @@
         <script src="scripts/main.js" defer></script>
     </head>
     <body>
-        <div>
-            <canvas id="canvas" width="760" height="480"></canvas>
+        <header> class="page-header">
+        <h1>Simulador de Tiro Parabólico</h1>
+        <p class="subtitle">Proyecto Física Mecánica - Lanzamiento de proyectiles</p> 
+        </header>   
+        <main class="layout">
+    <section class="canvas-section">
+      <div class="canvas-wrap">
+        <span class="canvas-label">Vista de trayectoria</span>
+        <canvas id="canvas" width="760" height="480"></canvas>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <section class="card">
+        <h2 class="card-title">Parámetros de lanzamiento</h2>
+
+        <div class="control-row">
+          <label class="control-label" for="sl-angulo">
+            <span>Ángulo θ</span>
+            <span id="val-angulo">45°</span>
+          </label>
+          <input type="range" id="sl-angulo" min="1" max="89" value="45" />
         </div>
 
-        <div>
-            <label>Ángulo: <span id="val-angulo">45°</span></label>
-            <input type="range" id="sl-angulo" min="1" max="89" value="45">
-
-            <label>Velocidad inicial: <span id="val-velocidad">30m/s</span></label>
-            <input type="range" id="sl-velocidad" min="5" max="100" value="30">
-
-            <label>Altura inicial: <span id="val-altura">0 m</span></label>
-            <input type="range" id="sl-velocidad" min="5" max="100" value="30">
-
-            <label>Gravedad: <span id="val-gravedad">9.8 m/s²</span></label>
-            <input type="range" id="sl-gravedad" min="10" max="250" value="98" step="1">
+        <div class="control-row">
+          <label class="control-label" for="sl-velocidad">
+            <span>Velocidad inicial v₀</span>
+            <span id="val-velocidad">30 m/s</span>
+          </label>
+          <input type="range" id="sl-velocidad" min="5" max="100" value="30" />
         </div>
 
-        <div>
-            <button id="btn-lanzar">Lanzar</button>
-            <button id="btn-reset">Reiniciar</button>
+        <div class="control-row">
+          <label class="control-label" for="sl-altura">
+            <span>Altura inicial y₀</span>
+            <span id="val-altura">0 m</span>
+          </label>
+          <input type="range" id="sl-altura" min="0" max="80" value="0" />
         </div>
 
-        <div>
-            <p>Tiempo: <span id="d-tiempo">0.00</span> s</p>
-            <p>Posición X: <span id="d-x">0.00</span> m</p>
-            <p>Posición Y: <span id="d-y">0.00</span> m</p>
+        <div class="control-row">
+          <label class="control-label" for="sl-gravedad">
+            <span>Gravedad g</span>
+            <span id="val-gravedad">9.8 m/s²</span>
+          </label>
+          <input type="range" id="sl-gravedad" min="1" max="25" step="0.1" value="9.8" />
         </div>
+
+        <div class="btn-row">
+          <button id="btn-lanzar" type="button">Lanzar</button>
+          <button id="btn-reset" type="button">Reiniciar</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Datos en tiempo real</h2>
+
+        <div class="datos-grid">
+          <div class="dato">
+            <span class="dato-label">Tiempo</span>
+            <span class="dato-valor"><span id="d-tiempo">0.00</span> s</span>
+          </div>
+
+          <div class="dato">
+            <span class="dato-label">Posición en X</span>
+            <span class="dato-valor"><span id="d-x">0.00</span> m</span>
+          </div>
+
+          <div class="dato">
+            <span class="dato-label">Posición en Y</span>
+            <span class="dato-valor"><span id="d-y">0.00</span> m</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Resultados</h2>
+        <div class="resultados-placeholder">
+          Los resultados aparecerán al finalizar la simulación.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Ecuaciones del modelo</h2>
+        <div class="eq">
+          <p>x(t) = v₀ · cos(θ) · t</p>
+          <p>y(t) = y₀ + v₀ · sin(θ) · t − ½ · g · t²</p>
+          <p>v<sub>x</sub>(t) = v₀ · cos(θ)</p>
+          <p>v<sub>y</sub>(t) = v₀ · sin(θ) − g · t</p>
+        </div>
+      </section>
+    </aside>
+  </main>
     </body>
 </html>
