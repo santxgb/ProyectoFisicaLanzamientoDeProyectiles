@@ -28,5 +28,12 @@ for (const [nombre, elemento] of Object.entries(elementos)){
         console.error(`No se encontró el elemento: ${nombre}`);
         todoCorrecto = false;
         }
-    } 
+    }
+    return todoCorrecto;
 }
+function actualizarValoresControles(elementos){ 
+    elementos.valAngulo.textContent = `${elementos.slAngulo.value}°`;
+    elementos.valVelocidad.textContent = `${elementos.slVelocidad.value}m/s`;
+    elementos.valAltura.textContent = `${elementos.slAltura.value}m`;
+    elementos.valGravedad.textContent = `${Number(elementos.slGravedad.value).toFixed(1)} m/s²`
+    }
