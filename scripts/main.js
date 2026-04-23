@@ -65,4 +65,4 @@ slGravedad.addEventListener('input', actualizarValores);
 
 actualizarValores();
 
-console.log('Holi');
+console.log("main.js cargado correctamente");
