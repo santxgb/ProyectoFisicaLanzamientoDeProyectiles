@@ -20,3 +20,13 @@ function obtenerElementosUI(){
     };
     return elementos;
 }
+function validarElementosUI(elementos){
+    let todoCorrecto = true;
+
+for (const [nombre, elemento] of Object.entries(elementos)){
+    if(!elemento){
+        console.error(`No se encontró el elemento: ${nombre}`);
+        todoCorrecto = false;
+        }
+    } 
+}
