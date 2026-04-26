@@ -5,21 +5,35 @@ Este documento registra los casos de prueba realizados sobre el simulador de tir
 
 ## Pruebas funcionales
 
+## Pruebas funcionales
+
 ### Caso 1: carga inicial de la interfaz
 - Resultado esperado: el simulador debe mostrar canvas, controles y datos iniciales en 0.00
-- Resultado obtenido: pendiente
+- Resultado obtenido: correcto
+- Observaciones: la interfaz carga sin errores y los datos iniciales se muestran correctamente.
 
 ### Caso 2: actualización de sliders
 - Resultado esperado: al mover los sliders, deben actualizarse los valores visibles de ángulo, velocidad, altura y gravedad
-- Resultado obtenido: pendiente
+- Resultado obtenido: correcto
+- Observaciones: todos los sliders actualizan sus etiquetas en tiempo real y la gravedad se muestra con un decimal.
 
 ### Caso 3: reinicio de datos
 - Resultado esperado: al presionar el botón de reinicio, los datos deben volver a sus valores iniciales
 - Resultado obtenido: pendiente
 
+### Caso 4: vista previa en canvas
+- Resultado esperado: al modificar los parámetros, la vista previa del lanzamiento debe actualizarse en el canvas
+- Resultado obtenido: correcto
+- Observaciones: el punto inicial, la guía del ángulo y el texto informativo cambian correctamente.
+
+### Caso 5: validación de elementos del DOM
+- Resultado esperado: todos los elementos necesarios deben encontrarse correctamente desde JavaScript
+- Resultado obtenido: correcto
+- Observaciones: no se detectaron elementos faltantes ni errores de referencia en consola.
+
 ## Pruebas físicas
 
-### Caso 4: lanzamiento base
+### Caso 6: lanzamiento base
 - Ángulo: 45°
 - Velocidad inicial: 20 m/s
 - Altura inicial: 0 m
@@ -28,7 +42,7 @@ Este documento registra los casos de prueba realizados sobre el simulador de tir
 - Resultado del simulador: pendiente
 - Análisis: pendiente
 
-### Caso 5: lanzamiento con altura inicial
+### Caso 7: lanzamiento con altura inicial
 - Ángulo: 45°
 - Velocidad inicial: 20 m/s
 - Altura inicial: 10 m
@@ -37,8 +51,16 @@ Este documento registra los casos de prueba realizados sobre el simulador de tir
 - Resultado del simulador: pendiente
 - Análisis: pendiente
 
-## Errores encontrados
-- Pendiente
+## Errores encontrados y correcciones
+- Se corrigió un id duplicado en el control de altura inicial.
+- Se ajustó el manejo de la gravedad para trabajar con valores decimales directamente en el slider.
+- Se reorganizó el código para separar interfaz, canvas y archivo principal.
+
+## Estado de avance probado
+- Módulo de interfaz: completado
+- Módulo de canvas inicial: completado
+- Motor físico: pendiente de implementación
+- Animación completa: pendiente
 
 ## Conclusión
 - Pendiente
