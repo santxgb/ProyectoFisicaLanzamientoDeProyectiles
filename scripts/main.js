@@ -35,4 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   console.log('main.js cargado correctamente');
+
+  const parametrosPrueba = {
+    angulo: 45,
+    velocidadInicial: 20,
+    alturaIncial: 0,
+    gravedad: 9.8
+  };
+
+  console.log('==============Pruebas del Motor físico========')
+  console.log('Parámetros de prueba:', parametrosPrueba);
+  console.log('componentes de velocidad:', calcularComponentesVelocidad(20, 45));
+  console.log('tiempo de vuelo:', calcularTiempoVuelo(20, 45, 0, 9.8));
+  console.log('Altura máxima:', calcularAlturaMaxima(20, 45, 0, 9.8));
+  console.log('Alcance horizontal:', calcularAlcanceHorizontal(20, 45, 0, 9.8));
+  console.log('Estado en t=1s:', calcularEstadoProyectil(parametrosPrueba, 1));
 });
