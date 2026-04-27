@@ -1,0 +1,419 @@
+:root {
+  /* ── Fondos ── */
+  --bg-principal:   #0f1117;   /* fondo de la página */
+  --bg-canvas:      #0d1b2a;   /* el área de simulación */
+  --bg-panel:       #1e293b;   /* tarjetas, paneles laterales */
+  --bg-borde:       #334155;   /* bordes y separadores */
+
+  /* ── Acentos ── */
+  --acento-azul:    #38bdf8;   /* sliders, títulos, highlights */
+  --acento-naranja: #f97316;   /* proyectil, botón "Lanzar" */
+  --acento-cyan:    #22d3ee;   /* trayectoria dibujada */
+  --acento-ambar:   #fbbf24;   /* datos en tiempo real, alertas */
+
+  /* ── Tipografía ── */
+  --text-titulo:    #f1f5f9;   /* encabezados H1, H2 */
+  --text-principal: #cbd5e1;   /* texto de párrafo */
+  --text-secundario:#94a3b8;   /* labels, subtítulos */
+  --text-muted:     #64748b;   /* placeholders, unidades */
+
+    /* Fuentes */
+  --fuente-principal: 'Inter', 'Segoe UI', sans-serif;
+  --fuente-mono:      'JetBrains Mono', 'Courier New', monospace;
+
+  /* Tamaños */
+  --text-xs:   0.75rem;   /*  12px — unidades, placeholders */
+  --text-sm:   0.875rem;  /*  14px — labels de sliders      */
+  --text-base: 1rem;      /*  16px — texto general          */
+  --text-lg:   1.125rem;  /*  18px — subtítulos H3          */
+  --text-xl:   1.25rem;   /*  20px — subtítulos H2          */
+  --text-2xl:  1.5rem;    /*  24px — título H1              */
+  --text-3xl:  1.875rem;  /*  30px — título principal       */
+
+  /* Pesos */
+  --fw-normal:   400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Altura de línea */
+  --leading-tight:  1.25;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+}
+
+body {
+  background-color: var(--bg-principal);
+  color: var(--text-principal);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+h1 { color: var(--acento-azul); }
+h2 { color: var(--text-titulo); }
+
+/* Canvas de simulación */
+canvas, #vista-previa {
+  background-color: var(--bg-canvas);
+  border: 1px solid var(--bg-borde);
+}
+
+/* Panel de parámetros */
+.panel-parametros {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--bg-borde);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Sliders */
+input[type="range"] {
+  accent-color: var(--acento-azul);
+}
+
+/* Labels */
+label { color: var(--text-secundario); }
+
+/* Botón Lanzar */
+button#btn-lanzar {
+  background-color: var(--acento-naranja);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Botón Reiniciar */
+button#btn-reset {
+  background-color: transparent;
+  color: var(--text-secundario);
+  border: 1px solid var(--bg-borde);
+  border-radius: 6px;
+}
+
+/* Datos en tiempo real */
+.datos-tiempo-real {
+  color: var(--text-principal);
+  border-left: 3px solid var(--acento-ambar);
+  padding-left: 12px;
+}
+
+/* ── Base ── */
+body {
+  font-family: var(--fuente-principal);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  background-color: #0f1117;
+  color: #cbd5e1;
+}
+
+/* ── Títulos ── */
+h1 {
+  font-size: var(--text-3xl);     /* 30px */
+  font-weight: var(--fw-bold);
+  color: #38bdf8;
+  letter-spacing: -0.02em;        /* kerning apretado = más elegante */
+  line-height: var(--leading-tight);
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  font-size: var(--text-xl);      /* 20px */
+  font-weight: var(--fw-semibold);
+  color: #f1f5f9;
+  letter-spacing: -0.01em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: var(--text-lg);      /* 18px */
+  font-weight: var(--fw-medium);
+  color: #94a3b8;
+}
+
+/* ── Subtítulo del proyecto ── */
+.subtitulo-proyecto {
+  font-size: var(--text-sm);      /* 14px */
+  font-weight: var(--fw-normal);
+  color: #64748b;
+  letter-spacing: 0.05em;         /* letra espaciada = look técnico */
+  text-transform: uppercase;
+}
+
+/* ── Labels de sliders ── */
+label {
+  font-size: var(--text-sm);      /* 14px */
+  font-weight: var(--fw-medium);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Valores numéricos de sliders ── */
+label span.valor {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-sm);
+  color: #38bdf8;
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+/* ── Datos en tiempo real ── */
+.datos-tiempo-real p {
+  font-family: var(--fuente-mono); /* monoespaciado para números */
+  font-size: var(--text-base);
+  color: #cbd5e1;
+  line-height: var(--leading-loose);
+}
+
+.datos-tiempo-real span.numero {
+  color: #fbbf24;
+  font-weight: var(--fw-medium);
+}
+
+/* ── Info del canvas ── */
+.info-canvas {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-xs);      /* 12px */
+  color: #64748b;
+  line-height: var(--leading-loose);
+}
+
+/* ── Botones ── */
+button {
+  font-family: var(--fuente-principal);
+  font-size: var(--text-sm);      /* 14px */
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════════════════════
+   LAYOUT
+   ════════════════════════════════════════ */
+
+/* Header */
+.page-header {
+  text-align: center;
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--bg-borde);
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-normal);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Grid principal */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  align-items: start;
+}
+
+/* ════════════════════════════════════════
+   CANVAS
+   ════════════════════════════════════════ */
+
+.canvas-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.canvas-label {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* ════════════════════════════════════════
+   PANEL LATERAL
+   ════════════════════════════════════════ */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-borde) transparent;
+}
+
+/* ════════════════════════════════════════
+   CARDS
+   ════════════════════════════════════════ */
+
+.card {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--bg-borde);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: var(--text-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-titulo);
+  letter-spacing: -0.01em;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bg-borde);
+}
+
+/* ════════════════════════════════════════
+   CONTROLES (sliders)
+   ════════════════════════════════════════ */
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
+}
+
+.control-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-secundario);
+}
+
+.control-label span:last-child {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-sm);
+  color: var(--acento-azul);
+  min-width: 4rem;
+  text-align: right;
+}
+
+input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ════════════════════════════════════════
+   BOTONES
+   ════════════════════════════════════════ */
+
+.btn-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.btn-row button {
+  flex: 1;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.btn-row button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.btn-row button:active {
+  transform: translateY(0);
+}
+
+#btn-lanzar {
+  color: #fff;
+}
+
+#btn-reset {
+  color: var(--text-secundario);
+}
+
+/* ════════════════════════════════════════
+   DATOS EN TIEMPO REAL
+   ════════════════════════════════════════ */
+
+.datos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.dato {
+  background-color: var(--bg-canvas);
+  border: 1px solid var(--bg-borde);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dato-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dato-valor {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-sm);
+  color: var(--acento-ambar);
+  font-weight: var(--fw-medium);
+}
+
+/* ════════════════════════════════════════
+   ECUACIONES
+   ════════════════════════════════════════ */
+
+.eq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.eq p {
+  font-family: var(--fuente-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secundario);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════
+   RESULTADOS
+   ════════════════════════════════════════ */
+
+.resultados-placeholder {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 0.75rem 0;
+}

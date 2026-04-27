@@ -13,25 +13,58 @@ function limpiarCanvas(ctx, canvas){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function dibujarCuadricula(ctx, canvas, origenX, origenY){
+    const paso = 50;
+
+    ctx.save();
+
+    // Líneas de cuadrícula
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    ctx.lineWidth = 1;
+
+    for(let x = origenX; x <= canvas.width; x += paso){
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for(let x = origenX - paso; x >= 0; x -= paso){
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for(let y = origenY; y >= 0; y -= paso){
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+    for(let y = origenY + paso; y <= canvas.height; y += paso){
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+
+    // Eje X (suelo) y eje Y (vertical del origen)
+    ctx.strokeStyle = 'rgba(100, 160, 255, 0.22)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, origenY); ctx.lineTo(canvas.width, origenY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(origenX, 0); ctx.lineTo(origenX, canvas.height); ctx.stroke();
+
+    ctx.restore();
+}
+
 function dibujarEscenaInicial(ctx, canvas, parametros){
     limpiarCanvas(ctx, canvas);
+
+    const sueloY = canvas.height - 40;
+    const origenX = 60;
 
     //Fondo
     ctx.fillStyle = '#111827';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    dibujarCuadricula(ctx, canvas, origenX, sueloY);
+
     //Suelo
-    const sueloY = canvas.height - 40;
     ctx.stokeStryle = '#475569';
     ctx.lineWidth = 2;
-    ctx.beginPath();
     ctx.beginPath();
     ctx.moveTo(0, sueloY);
     ctx.lineTo(canvas.width, sueloY);
     ctx.stroke();
-    
+
     //Punto de lanzamieto
-    const origenX = 60;
     const origenY = sueloY - parametros.alturaInicial * 3;
 
     ctx.beginPath();
