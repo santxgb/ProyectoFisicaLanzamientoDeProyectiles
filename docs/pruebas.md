@@ -49,6 +49,38 @@ Este documento registra los casos de prueba realizados sobre el simulador de tir
 - Resultado del simulador: pendiente
 - Análisis: pendiente
 
+## Pruebas de resultados y visualización
+
+### Caso 9: actualización de velocidades en tiempo real
+- Acción: ejecutar un lanzamiento
+- Resultado esperado: deben mostrarse vx, vy y |v| actualizados durante el movimiento
+- Resultado obtenido: correcto
+
+### Caso 10: dibujo de trayectoria
+- Acción: ejecutar una simulación completa
+- Resultado esperado: debe dibujarse la trayectoria del proyectil sobre el canvas
+- Resultado obtenido: correcto
+
+### Caso 11: resultados finales del vuelo
+- Acción: dejar finalizar la simulación
+- Resultado esperado: deben mostrarse alcance total, altura máxima y tiempo de vuelo
+- Resultado obtenido: correcto
+
+### Caso 12: control del botón lanzar
+- Acción: iniciar la simulación
+- Resultado esperado: el botón lanzar debe permanecer deshabilitado mientras el proyectil está en movimiento
+- Resultado obtenido: correcto
+
+### Caso 13: integración del ciclo principal de simulación
+- Acción: iniciar y finalizar un lanzamiento con parámetros por defecto
+- Resultado esperado: el sistema debe animar el proyectil, actualizar datos en tiempo real, dibujar la trayectoria y mostrar los resultados al finalizar
+- Resultado obtenido: correcto
+
+### Caso 14: reinicio completo del estado
+- Acción: ejecutar una simulación y luego presionar "Reiniciar"
+- Resultado esperado: deben limpiarse trayectoria, datos y resultados, y debe volver la vista previa inicial
+- Resultado obtenido: correcto
+
 ## Errores encontrados y correcciones
 - Se corrigió un id duplicado en el control de altura inicial.
 - Se ajustó el manejo de la gravedad para trabajar con valores decimales directamente en el slider.
