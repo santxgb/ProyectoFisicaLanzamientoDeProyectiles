@@ -90,6 +90,13 @@ button#btn-reset {
   border-radius: 6px;
 }
 
+/* Botón Lanzar */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Datos en tiempo real */
 .datos-tiempo-real {
   color: var(--text-principal);

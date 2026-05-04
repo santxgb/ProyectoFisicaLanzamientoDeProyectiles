@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang ="es">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Simulador de Tiro Parabólico</title>
-        <link rel="stylesheet" href="css/styles.css">
-        <script src="scripts/physics.js" defer></script>
-        <script src="scripts/canvas.js" defer></script>
-        <script src="scripts/main.js" defer></script>
-        <script src="scripts/ui.js" defer></script>
-    </head>
-    <body>
-        <header class="page-header">
-        <h1>Simulador de Tiro Parabólico</h1>
-        <p class="subtitle">Proyecto Física Mecánica - Lanzamiento de proyectiles</p> 
-        </header>   
-        <main class="layout">
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Tiro Parabólico</title>
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script src="scripts/physics.js" defer></script>
+  <script src="scripts/canvas.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/main.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Simulador de Tiro Parabólico</h1>
+    <p class="subtitle">Proyecto Física Mecánica - Lanzamiento de proyectiles</p>
+  </header>
+
+  <main class="layout">
     <section class="canvas-section">
       <div class="canvas-wrap">
         <span class="canvas-label">Vista de trayectoria</span>
@@ -30,7 +32,7 @@
         <div class="control-row">
           <label class="control-label" for="sl-angulo">
             <span>Ángulo θ</span>
-            <span id="val-angulo">45°</span>
+            <span id="val-angulo" class="valor">45°</span>
           </label>
           <input type="range" id="sl-angulo" min="1" max="89" value="45" />
         </div>
@@ -38,7 +40,7 @@
         <div class="control-row">
           <label class="control-label" for="sl-velocidad">
             <span>Velocidad inicial v₀</span>
-            <span id="val-velocidad">30 m/s</span>
+            <span id="val-velocidad" class="valor">30 m/s</span>
           </label>
           <input type="range" id="sl-velocidad" min="5" max="100" value="30" />
         </div>
@@ -46,7 +48,7 @@
         <div class="control-row">
           <label class="control-label" for="sl-altura">
             <span>Altura inicial y₀</span>
-            <span id="val-altura">0 m</span>
+            <span id="val-altura" class="valor">0 m</span>
           </label>
           <input type="range" id="sl-altura" min="0" max="80" value="0" />
         </div>
@@ -54,7 +56,7 @@
         <div class="control-row">
           <label class="control-label" for="sl-gravedad">
             <span>Gravedad g</span>
-            <span id="val-gravedad">9.8 m/s²</span>
+            <span id="val-gravedad" class="valor">9.8 m/s²</span>
           </label>
           <input type="range" id="sl-gravedad" min="1" max="25" step="0.1" value="9.8" />
         </div>
@@ -83,12 +85,34 @@
             <span class="dato-label">Posición en Y</span>
             <span class="dato-valor"><span id="d-y">0.00</span> m</span>
           </div>
+
+          <div class="dato">
+            <span class="dato-label">Velocidad X</span>
+            <span class="dato-valor"><span id="d-vx">0.00</span> m/s</span>
+          </div>
+
+          <div class="dato">
+            <span class="dato-label">Velocidad Y</span>
+            <span class="dato-valor"><span id="d-vy">0.00</span> m/s</span>
+          </div>
+
+          <div class="dato">
+            <span class="dato-label">|Velocidad|</span>
+            <span class="dato-valor"><span id="d-vm">0.00</span> m/s</span>
+          </div>
         </div>
       </section>
 
       <section class="card">
         <h2 class="card-title">Resultados</h2>
-        <div class="resultados-placeholder">
+
+        <div id="resultados" style="display: none;">
+          <p>Alcance total: <span id="r-alcance">—</span></p>
+          <p>Altura máxima: <span id="r-hmax">—</span></p>
+          <p>Tiempo de vuelo: <span id="r-tvuelo">—</span></p>
+        </div>
+
+        <div id="resultados-placeholder" class="resultados-placeholder">
           Los resultados aparecerán al finalizar la simulación.
         </div>
       </section>

@@ -5,8 +5,6 @@ Este documento registra los casos de prueba realizados sobre el simulador de tir
 
 ## Pruebas funcionales
 
-## Pruebas funcionales
-
 ### Caso 1: carga inicial de la interfaz
 - Resultado esperado: el simulador debe mostrar canvas, controles y datos iniciales en 0.00
 - Resultado obtenido: correcto
