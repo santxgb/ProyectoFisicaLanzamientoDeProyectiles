@@ -13,10 +13,36 @@ function limpiarCanvas(ctx, canvas) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function convertirCoordenadasAMundoCanvas(canvas, x, y) {
+function calcularEscalaCanvas(canvas, parametros) {
   const origenX = 60;
   const sueloY = canvas.height - 40;
-  const escala = 8;
+
+  const anchoDisponible = canvas.width - origenX - 30;
+  const altoDisponible = sueloY - 30;
+
+  const alcanceTeorico = calcularAlcanceHorizontal(
+    parametros.velocidadInicial,
+    parametros.angulo,
+    parametros.alturaInicial,
+    parametros.gravedad
+  );
+
+  const alturaMaximaTeorica = calcularAlturaMaxima(
+    parametros.velocidadInicial,
+    parametros.angulo,
+    parametros.alturaInicial,
+    parametros.gravedad
+  );
+
+  const escalaX = anchoDisponible / Math.max(alcanceTeorico, 1);
+  const escalaY = altoDisponible / Math.max(alturaMaximaTeorica, 1);
+
+  return Math.min(escalaX, escalaY, 12);
+}
+
+function convertirCoordenadasAMundoCanvas(canvas, x, y, escala) {
+  const origenX = 60;
+  const sueloY = canvas.height - 40;
 
   return {
     canvasX: origenX + x * escala,
@@ -93,7 +119,7 @@ function dibujarFondo(ctx, canvas) {
   ctx.stroke();
 }
 
-function dibujarTextoParametros(ctx, parametros) {
+function dibujarTextoParametros(ctx, parametros, escala) {
   ctx.fillStyle = '#e5e7eb';
   ctx.font = '16px Arial';
   ctx.fillText('Vista del lanzamiento', 20, 30);
@@ -103,12 +129,12 @@ function dibujarTextoParametros(ctx, parametros) {
   ctx.fillText(`Velocidad inicial: ${parametros.velocidadInicial} m/s`, 20, 75);
   ctx.fillText(`Altura inicial: ${parametros.alturaInicial} m`, 20, 95);
   ctx.fillText(`Gravedad: ${parametros.gravedad.toFixed(1)} m/s²`, 20, 115);
+  ctx.fillText(`Escala: ${escala.toFixed(2)} px/m`, 20, 135);
 }
 
-function dibujarGuiaAngulo(ctx, canvas, parametros) {
+function dibujarGuiaAngulo(ctx, canvas, parametros, escala) {
   const origenX = 60;
   const sueloY = canvas.height - 40;
-  const escala = 8;
   const origenY = sueloY - parametros.alturaInicial * escala;
 
   const longitudGuia = 60;
@@ -124,7 +150,7 @@ function dibujarGuiaAngulo(ctx, canvas, parametros) {
   ctx.stroke();
 }
 
-function dibujarTrayectoria(ctx, canvas, trayectoria) {
+function dibujarTrayectoria(ctx, canvas, trayectoria, escala) {
   if (!trayectoria || trayectoria.length < 2) {
     return;
   }
@@ -137,7 +163,8 @@ function dibujarTrayectoria(ctx, canvas, trayectoria) {
     const { canvasX, canvasY } = convertirCoordenadasAMundoCanvas(
       canvas,
       punto.x,
-      punto.y
+      punto.y,
+      escala
     );
 
     if (indice === 0) {
@@ -150,8 +177,13 @@ function dibujarTrayectoria(ctx, canvas, trayectoria) {
   ctx.stroke();
 }
 
-function dibujarProyectil(ctx, canvas, x, y) {
-  const { canvasX, canvasY } = convertirCoordenadasAMundoCanvas(canvas, x, y);
+function dibujarProyectil(ctx, canvas, x, y, escala) {
+  const { canvasX, canvasY } = convertirCoordenadasAMundoCanvas(
+    canvas,
+    x,
+    y,
+    escala
+  );
 
   ctx.beginPath();
   ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
@@ -161,16 +193,22 @@ function dibujarProyectil(ctx, canvas, x, y) {
 
 function dibujarEscenaInicial(ctx, canvas, parametros) {
   limpiarCanvas(ctx, canvas);
+
+  const escala = calcularEscalaCanvas(canvas, parametros);
+
   dibujarFondo(ctx, canvas);
-  dibujarTextoParametros(ctx, parametros);
-  dibujarGuiaAngulo(ctx, canvas, parametros);
-  dibujarProyectil(ctx, canvas, 0, parametros.alturaInicial);
+  dibujarTextoParametros(ctx, parametros, escala);
+  dibujarGuiaAngulo(ctx, canvas, parametros, escala);
+  dibujarProyectil(ctx, canvas, 0, parametros.alturaInicial, escala);
 }
 
 function dibujarEscenaSimulacion(ctx, canvas, parametros, estado, trayectoria = []) {
   limpiarCanvas(ctx, canvas);
+
+  const escala = calcularEscalaCanvas(canvas, parametros);
+
   dibujarFondo(ctx, canvas);
-  dibujarTextoParametros(ctx, parametros);
-  dibujarTrayectoria(ctx, canvas, trayectoria);
-  dibujarProyectil(ctx, canvas, estado.x, Math.max(estado.y, 0));
+  dibujarTextoParametros(ctx, parametros, escala);
+  dibujarTrayectoria(ctx, canvas, trayectoria, escala);
+  dibujarProyectil(ctx, canvas, estado.x, Math.max(estado.y, 0), escala);
 }
