@@ -20,41 +20,24 @@ function calcularEscalaCanvas(canvas, parametros) {
   const anchoDisponible = canvas.width - origenX - 30;
   const altoDisponible = sueloY - 30;
 
-  const velocidad = parametros.velocidadInicial;
-  const alturaInicial = parametros.alturaInicial;
-  const gravedad = parametros.gravedad;
+  const alcanceTeorico = calcularAlcanceHorizontal(
+    parametros.velocidadInicial,
+    parametros.angulo,
+    parametros.alturaInicial,
+    parametros.gravedad
+  );
 
-  let alcanceMaximoEstimado = 1;
-  let alturaMaximaEstimada = 1;
-
-  for (let angulo = 1; angulo <= 89; angulo += 1) {
-    const alcance = calcularAlcanceHorizontal(
-      velocidad,
-      angulo,
-      alturaInicial,
-      gravedad
-    );
-
-    const altura = calcularAlturaMaxima(
-      velocidad,
-      angulo,
-      alturaInicial,
-      gravedad
-    );
-
-    if (alcance > alcanceMaximoEstimado) {
-      alcanceMaximoEstimado = alcance;
-    }
-
-    if (altura > alturaMaximaEstimada) {
-      alturaMaximaEstimada = altura;
-    }
-  }
+  const alturaMaximaTeorica = calcularAlturaMaxima(
+    parametros.velocidadInicial,
+    parametros.angulo,
+    parametros.alturaInicial,
+    parametros.gravedad
+  );
 
   const margenVisual = 1.15;
 
-  const escalaX = anchoDisponible / (alcanceMaximoEstimado * margenVisual);
-  const escalaY = altoDisponible / (alturaMaximaEstimada * margenVisual);
+  const escalaX = anchoDisponible / Math.max(alcanceTeorico * margenVisual, 1);
+  const escalaY = altoDisponible / Math.max(alturaMaximaTeorica * margenVisual, 1);
 
   return Math.min(escalaX, escalaY, 12);
 }
@@ -148,7 +131,7 @@ function dibujarTextoParametros(ctx, parametros, escala) {
   ctx.fillText(`Velocidad inicial: ${parametros.velocidadInicial} m/s`, 20, 75);
   ctx.fillText(`Altura inicial: ${parametros.alturaInicial} m`, 20, 95);
   ctx.fillText(`Gravedad: ${parametros.gravedad.toFixed(1)} m/s²`, 20, 115);
-  ctx.fillText(`Escala: ${escala.toFixed(2)} px/m`, 20, 135);
+  ctx.fillText('Vista ajustada automáticamente', 20, 135);
 }
 
 function dibujarGuiaAngulo(ctx, canvas, parametros, escala) {
@@ -170,6 +153,7 @@ function dibujarGuiaAngulo(ctx, canvas, parametros, escala) {
 
   ctx.strokeStyle = '#3b82f6';
   ctx.lineWidth = 3;
+
   ctx.beginPath();
   ctx.moveTo(inicio.canvasX, inicio.canvasY);
   ctx.lineTo(finX, finY);
@@ -222,11 +206,13 @@ function dibujarGuiasProyectil(ctx, canvas, estado, escala) {
   ctx.lineWidth = 1.5;
   ctx.setLineDash([6, 6]);
 
+  // Guía vertical desde el proyectil hasta el suelo.
   ctx.beginPath();
   ctx.moveTo(posicion.canvasX, posicion.canvasY);
   ctx.lineTo(posicion.canvasX, origen.canvasY);
   ctx.stroke();
 
+  // Guía horizontal desde el eje Y hasta el proyectil.
   ctx.beginPath();
   ctx.moveTo(origen.canvasX, posicion.canvasY);
   ctx.lineTo(posicion.canvasX, posicion.canvasY);
@@ -261,25 +247,32 @@ function dibujarProyectil(ctx, canvas, x, y, escala) {
   ctx.restore();
 }
 
-function dibujarEscenaInicial(ctx, canvas, parametros) {
+function dibujarEscenaInicial(ctx, canvas, parametros, escala = null) {
   limpiarCanvas(ctx, canvas);
 
-  const escala = calcularEscalaCanvas(canvas, parametros);
+  const escalaUsada = escala || calcularEscalaCanvas(canvas, parametros);
 
   dibujarFondo(ctx, canvas);
-  dibujarTextoParametros(ctx, parametros, escala);
-  dibujarGuiaAngulo(ctx, canvas, parametros, escala);
-  dibujarProyectil(ctx, canvas, 0, parametros.alturaInicial, escala);
+  dibujarTextoParametros(ctx, parametros, escalaUsada);
+  dibujarGuiaAngulo(ctx, canvas, parametros, escalaUsada);
+  dibujarProyectil(ctx, canvas, 0, parametros.alturaInicial, escalaUsada);
 }
 
-function dibujarEscenaSimulacion(ctx, canvas, parametros, estado, trayectoria = []) {
+function dibujarEscenaSimulacion(
+  ctx,
+  canvas,
+  parametros,
+  estado,
+  trayectoria = [],
+  escala = null
+) {
   limpiarCanvas(ctx, canvas);
 
-  const escala = calcularEscalaCanvas(canvas, parametros);
+  const escalaUsada = escala || calcularEscalaCanvas(canvas, parametros);
 
   dibujarFondo(ctx, canvas);
-  dibujarTextoParametros(ctx, parametros, escala);
-  dibujarTrayectoria(ctx, canvas, trayectoria, escala);
-  dibujarGuiasProyectil(ctx, canvas, estado, escala);
-  dibujarProyectil(ctx, canvas, estado.x, Math.max(estado.y, 0), escala);
+  dibujarTextoParametros(ctx, parametros, escalaUsada);
+  dibujarTrayectoria(ctx, canvas, trayectoria, escalaUsada);
+  dibujarGuiasProyectil(ctx, canvas, estado, escalaUsada);
+  dibujarProyectil(ctx, canvas, estado.x, Math.max(estado.y, 0), escalaUsada);
 }

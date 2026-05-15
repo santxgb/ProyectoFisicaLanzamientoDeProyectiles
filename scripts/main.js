@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let tiempoActual = 0;
   let trayectoria = [];
   let alturaMaximaRegistrada = 0;
+  let escalaActual = null;
 
   const deltaTiempo = 0.02;
 
@@ -38,11 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
   limpiarResultados(elementos);
 
   const parametrosIniciales = leerParametrosUI(elementos);
-  dibujarEscenaInicial(ctx, elementos.canvas, parametrosIniciales);
+  escalaActual = calcularEscalaCanvas(elementos.canvas, parametrosIniciales);
+  dibujarEscenaInicial(
+    ctx,
+    elementos.canvas,
+    parametrosIniciales,
+    escalaActual
+  );
 
   enlazarEventosControles(elementos, (parametrosActualizados) => {
     if (!simulando) {
-      dibujarEscenaInicial(ctx, elementos.canvas, parametrosActualizados);
+      dibujarEscenaInicial(
+        ctx,
+        elementos.canvas,
+        parametrosActualizados,
+        escalaActual
+      );
     }
   });
 
@@ -75,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     trayectoria = [];
 
     const parametros = leerParametrosUI(elementos);
+    escalaActual = calcularEscalaCanvas(elementos.canvas, parametros);
     alturaMaximaRegistrada = parametros.alturaInicial;
 
     reiniciarDatosTiempoReal(elementos);
@@ -99,30 +112,28 @@ document.addEventListener('DOMContentLoaded', () => {
         elementos.canvas,
         parametros,
         estado,
-        trayectoria
+        trayectoria,
+        escalaActual
       );
 
       if (estado.y <= 0 && tiempoActual > 0) {
-        actualizarDatosTiempoReal(elementos, {
+        const estadoFinal = {
           ...estado,
           y: 0
-        });
+        };
+
+        actualizarDatosTiempoReal(elementos, estadoFinal);
 
         dibujarEscenaSimulacion(
           ctx,
           elementos.canvas,
           parametros,
-          {
-            ...estado,
-            y: 0
-          },
-          trayectoria
+          estadoFinal,
+          trayectoria,
+          escalaActual
         );
 
-        finalizarSimulacion({
-          ...estado,
-          y: 0
-        });
+        finalizarSimulacion(estadoFinal);
         return;
       }
 
@@ -149,7 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
     limpiarResultados(elementos);
 
     const parametros = leerParametrosUI(elementos);
-    dibujarEscenaInicial(ctx, elementos.canvas, parametros);
+    escalaActual = calcularEscalaCanvas(elementos.canvas, parametros);
+
+    dibujarEscenaInicial(
+      ctx,
+      elementos.canvas,
+      parametros,
+      escalaActual
+    );
 
     console.log('Simulación reiniciada');
   }
