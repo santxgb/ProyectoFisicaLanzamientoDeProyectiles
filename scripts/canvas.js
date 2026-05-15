@@ -206,13 +206,11 @@ function dibujarGuiasProyectil(ctx, canvas, estado, escala) {
   ctx.lineWidth = 1.5;
   ctx.setLineDash([6, 6]);
 
-  // Guía vertical desde el proyectil hasta el suelo.
   ctx.beginPath();
   ctx.moveTo(posicion.canvasX, posicion.canvasY);
   ctx.lineTo(posicion.canvasX, origen.canvasY);
   ctx.stroke();
 
-  // Guía horizontal desde el eje Y hasta el proyectil.
   ctx.beginPath();
   ctx.moveTo(origen.canvasX, posicion.canvasY);
   ctx.lineTo(posicion.canvasX, posicion.canvasY);
