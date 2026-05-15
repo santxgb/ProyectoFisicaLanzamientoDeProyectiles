@@ -133,21 +133,30 @@ function dibujarTextoParametros(ctx, parametros, escala) {
 }
 
 function dibujarGuiaAngulo(ctx, canvas, parametros, escala) {
-  const origenX = 60;
-  const sueloY = canvas.height - 40;
-  const origenY = sueloY - parametros.alturaInicial * escala;
+  const anguloRad = (parametros.angulo * Math.PI) / 180;
+
+  const inicio = convertirCoordenadasAMundoCanvas(
+    canvas,
+    0,
+    parametros.alturaInicial,
+    escala
+  );
 
   const longitudGuia = 60;
-  const anguloRad = (parametros.angulo * Math.PI) / 180;
-  const finX = origenX + Math.cos(anguloRad) * longitudGuia;
-  const finY = origenY - Math.sin(anguloRad) * longitudGuia;
+
+  const finX = inicio.canvasX + Math.cos(anguloRad) * longitudGuia;
+  const finY = inicio.canvasY - Math.sin(anguloRad) * longitudGuia;
+
+  ctx.save();
 
   ctx.strokeStyle = '#3b82f6';
   ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(origenX, origenY);
+  ctx.moveTo(inicio.canvasX, inicio.canvasY);
   ctx.lineTo(finX, finY);
   ctx.stroke();
+
+  ctx.restore();
 }
 
 function dibujarTrayectoria(ctx, canvas, trayectoria, escala) {
