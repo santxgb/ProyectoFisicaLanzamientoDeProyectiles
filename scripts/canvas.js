@@ -164,6 +164,8 @@ function dibujarTrayectoria(ctx, canvas, trayectoria, escala) {
     return;
   }
 
+  ctx.save();
+
   ctx.strokeStyle = '#22d3ee';
   ctx.lineWidth = 2;
   ctx.beginPath();
