@@ -184,6 +184,8 @@ function dibujarTrayectoria(ctx, canvas, trayectoria, escala) {
   });
 
   ctx.stroke();
+
+  ctx.restore();
 }
 
 function dibujarProyectil(ctx, canvas, x, y, escala) {
@@ -219,5 +221,6 @@ function dibujarEscenaSimulacion(ctx, canvas, parametros, estado, trayectoria = 
   dibujarFondo(ctx, canvas);
   dibujarTextoParametros(ctx, parametros, escala);
   dibujarTrayectoria(ctx, canvas, trayectoria, escala);
+  dibujarGuiasProyectil(ctx, canvas, estado, escala);
   dibujarProyectil(ctx, canvas, estado.x, Math.max(estado.y, 0), escala);
 }
