@@ -188,6 +188,40 @@ function dibujarTrayectoria(ctx, canvas, trayectoria, escala) {
   ctx.restore();
 }
 
+function dibujarGuiasProyectil(ctx, canvas, estado, escala) {
+  const x = estado.x;
+  const y = Math.max(estado.y, 0);
+
+  const posicion = convertirCoordenadasAMundoCanvas(canvas, x, y, escala);
+  const origen = convertirCoordenadasAMundoCanvas(canvas, 0, 0, escala);
+
+  ctx.save();
+
+  ctx.strokeStyle = 'rgba(251, 191, 36, 0.65)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 6]);
+
+  ctx.beginPath();
+  ctx.moveTo(posicion.canvasX, posicion.canvasY);
+  ctx.lineTo(posicion.canvasX, origen.canvasY);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(origen.canvasX, posicion.canvasY);
+  ctx.lineTo(posicion.canvasX, posicion.canvasY);
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#fbbf24';
+  ctx.font = '12px Arial';
+
+  ctx.fillText(`x = ${x.toFixed(2)} m`, posicion.canvasX + 8, origen.canvasY - 8);
+  ctx.fillText(`y = ${y.toFixed(2)} m`, origen.canvasX + 8, posicion.canvasY - 8);
+
+  ctx.restore();
+}
+
 function dibujarProyectil(ctx, canvas, x, y, escala) {
   const { canvasX, canvasY } = convertirCoordenadasAMundoCanvas(
     canvas,
@@ -196,10 +230,14 @@ function dibujarProyectil(ctx, canvas, x, y, escala) {
     escala
   );
 
+  ctx.save();
+
   ctx.beginPath();
   ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
   ctx.fillStyle = '#f97316';
   ctx.fill();
+
+  ctx.restore();
 }
 
 function dibujarEscenaInicial(ctx, canvas, parametros) {
