@@ -20,22 +20,41 @@ function calcularEscalaCanvas(canvas, parametros) {
   const anchoDisponible = canvas.width - origenX - 30;
   const altoDisponible = sueloY - 30;
 
-  const alcanceTeorico = calcularAlcanceHorizontal(
-    parametros.velocidadInicial,
-    parametros.angulo,
-    parametros.alturaInicial,
-    parametros.gravedad
-  );
+  const velocidad = parametros.velocidadInicial;
+  const alturaInicial = parametros.alturaInicial;
+  const gravedad = parametros.gravedad;
 
-  const alturaMaximaTeorica = calcularAlturaMaxima(
-    parametros.velocidadInicial,
-    parametros.angulo,
-    parametros.alturaInicial,
-    parametros.gravedad
-  );
+  let alcanceMaximoEstimado = 1;
+  let alturaMaximaEstimada = 1;
 
-  const escalaX = anchoDisponible / Math.max(alcanceTeorico, 1);
-  const escalaY = altoDisponible / Math.max(alturaMaximaTeorica, 1);
+  for (let angulo = 1; angulo <= 89; angulo += 1) {
+    const alcance = calcularAlcanceHorizontal(
+      velocidad,
+      angulo,
+      alturaInicial,
+      gravedad
+    );
+
+    const altura = calcularAlturaMaxima(
+      velocidad,
+      angulo,
+      alturaInicial,
+      gravedad
+    );
+
+    if (alcance > alcanceMaximoEstimado) {
+      alcanceMaximoEstimado = alcance;
+    }
+
+    if (altura > alturaMaximaEstimada) {
+      alturaMaximaEstimada = altura;
+    }
+  }
+
+  const margenVisual = 1.15;
+
+  const escalaX = anchoDisponible / (alcanceMaximoEstimado * margenVisual);
+  const escalaY = altoDisponible / (alturaMaximaEstimada * margenVisual);
 
   return Math.min(escalaX, escalaY, 12);
 }
