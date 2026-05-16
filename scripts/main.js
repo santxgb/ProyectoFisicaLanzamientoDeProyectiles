@@ -144,32 +144,43 @@ document.addEventListener('DOMContentLoaded', () => {
     animacionId = requestAnimationFrame(frameSimulacion);
   }
 
+  function restaurarControlesIniciales() {
+  elementos.slAngulo.value = elementos.slAngulo.defaultValue || 45;
+  elementos.slVelocidad.value = elementos.slVelocidad.defaultValue || 30;
+  elementos.slAltura.value = 0;
+
+  elementos.slGravedad.value = elementos.slGravedad.defaultValue || 9.8;
+
+  actualizarValoresControles(elementos);
+  }
   function reiniciarSimulacion() {
-    if (animacionId) {
-      cancelAnimationFrame(animacionId);
-      animacionId = null;
-    }
+  if (animacionId) {
+    cancelAnimationFrame(animacionId);
+    animacionId = null;
+  }
 
-    simulando = false;
-    tiempoActual = 0;
-    trayectoria = [];
-    alturaMaximaRegistrada = 0;
+  simulando = false;
+  tiempoActual = 0;
+  trayectoria = [];
+  alturaMaximaRegistrada = 0;
+  restaurarControlesIniciales();
 
-    cambiarEstadoBotones(elementos, false);
-    reiniciarDatosTiempoReal(elementos);
-    limpiarResultados(elementos);
+  cambiarEstadoBotones(elementos, false);
+  reiniciarDatosTiempoReal(elementos);
+  limpiarResultados(elementos);
 
-    const parametros = leerParametrosUI(elementos);
-    escalaActual = calcularEscalaCanvas(elementos.canvas, parametros);
+  const parametros = leerParametrosUI(elementos);
 
-    dibujarEscenaInicial(
-      ctx,
-      elementos.canvas,
-      parametros,
-      escalaActual
-    );
+  escalaActual = calcularEscalaCanvas(elementos.canvas, parametros);
 
-    console.log('Simulación reiniciada');
+  dibujarEscenaInicial(
+    ctx,
+    elementos.canvas,
+    parametros,
+    escalaActual
+  );
+
+  console.log('Simulación reiniciada');
   }
 
   elementos.btnLanzar.addEventListener('click', iniciarSimulacion);

@@ -34,12 +34,19 @@ function calcularEscalaCanvas(canvas, parametros) {
     parametros.gravedad
   );
 
+  const sliderAltura = document.getElementById('sl-altura');
+  const alturaMaximaSlider = sliderAltura
+    ? Number(sliderAltura.max)
+    : 120;
+
   const margenVisual = 1.15;
 
   const escalaX = anchoDisponible / Math.max(alcanceTeorico * margenVisual, 1);
   const escalaY = altoDisponible / Math.max(alturaMaximaTeorica * margenVisual, 1);
 
-  return Math.min(escalaX, escalaY, 12);
+  const escalaAlturaInicial = altoDisponible / Math.max(alturaMaximaSlider * margenVisual, 1);
+
+  return Math.min(escalaX, escalaY, escalaAlturaInicial, 12);
 }
 
 function convertirCoordenadasAMundoCanvas(canvas, x, y, escala) {
